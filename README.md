@@ -1,3 +1,4 @@
+
 QuoteVault – Complete Project Documentation
 Mobile Application Developer Assignment
 
@@ -131,6 +132,161 @@ Design Screenshot:
 
 End of Document
 
+# QuoteVault - Full-Featured Quote App
 
+A complete quote discovery and collection app built with SwiftUI and Supabase, featuring user accounts, cloud sync, and personalization.
 
+## Features
 
+### ✅ Authentication & User Accounts
+- Sign up with email/password
+- Login/logout functionality
+- Password reset flow
+- User profile screen (name, avatar)
+- Session persistence (stay logged in)
+- Integrated with Supabase Auth
+
+### ✅ Quote Browsing & Discovery
+- Home feed displaying quotes with pagination
+- Browse quotes by category (Motivation, Love, Success, Wisdom, Humor)
+- Search quotes by keyword
+- Search/filter by author
+- Pull-to-refresh functionality
+- Loading states and empty states handled gracefully
+- 100+ pre-seeded quotes across categories
+
+### ✅ Favorites & Collections
+- Save quotes to favorites (heart/bookmark)
+- View all favorited quotes in a dedicated screen
+- Create custom collections (e.g., "Morning Motivation", "Work Quotes")
+- Add/remove quotes from collections
+- Cloud sync — favorites persist across devices when logged in
+
+### ✅ Daily Quote & Notifications
+- "Quote of the Day" prominently displayed on home screen
+- Quote of the day changes daily (server-side logic)
+- Local push notification for daily quote
+- User can set preferred notification time in settings
+
+### ✅ Sharing & Export
+- Share quote as text via system share sheet
+- Generate shareable quote card (quote + author on styled background)
+- Save quote card as image to device
+- 4 different card styles/templates to choose from (Classic, Sunset, Ocean, Minimal)
+
+### ✅ Personalization & Settings
+- Dark mode / Light mode toggle
+- 5 accent colors to choose from (Yellow, Blue, Purple, Green, Red)
+- Font size adjustment for quotes (12-24pt)
+- Settings persist locally and sync to user profile
+
+## Setup Instructions
+
+### 1. Supabase Setup
+
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Go to SQL Editor in your Supabase dashboard
+3. Run the SQL script from `supabase_schema.sql` to create all necessary tables and policies
+4. Go to Authentication > Providers and enable Email authentication
+5. Copy your project URL and anon key from Settings > API
+
+### 2. Configure the App
+
+1. Open `Quote/SupabaseConfig.swift`
+2. Replace the placeholder values:
+   ```swift
+   static let supabaseURL = "YOUR_SUPABASE_URL"
+   static let supabaseKey = "YOUR_SUPABASE_ANON_KEY"
+   ```
+
+### 3. Build and Run
+
+1. Open `Quote.xcodeproj` in Xcode
+2. Select your target device or simulator
+3. Build and run the project (⌘R)
+
+### 4. Permissions
+
+The app requires the following permissions:
+- **Notifications**: For daily quote notifications (requested when enabling in settings)
+- **Photo Library**: For saving quote cards (requested when saving a card)
+
+## Project Structure
+
+```
+Quote/
+├── QuoteApp.swift              # App entry point
+├── AuthenticationManager.swift # Auth state management
+├── SupabaseClient.swift        # Supabase API client
+├── SupabaseConfig.swift        # Supabase configuration
+├── Models.swift                # Data models
+├── QuoteService.swift          # Quote data service
+├── NotificationManager.swift   # Local notifications
+├── ThemeManager.swift          # Theme management
+├── Views/
+│   ├── LoginView.swift
+│   ├── SignUpView.swift
+│   ├── ForgotPasswordView.swift
+│   ├── HomeView.swift
+│   ├── FavoritesView.swift
+│   ├── CollectionsView.swift
+│   ├── ProfileView.swift
+│   ├── EditProfileView.swift
+│   ├── ChangePasswordView.swift
+│   ├── SettingsView.swift
+│   ├── QuoteCardView.swift
+│   └── MainTabView.swift
+└── supabase_schema.sql         # Database schema
+```
+
+## Database Schema
+
+The app uses the following Supabase tables:
+- `quotes` - Stores all quotes
+- `user_favorites` - User's favorite quotes
+- `collections` - User-created collections
+- `collection_quotes` - Junction table for quotes in collections
+
+All tables have Row Level Security (RLS) enabled with appropriate policies.
+
+## Technologies Used
+
+- **SwiftUI** - UI framework
+- **Supabase** - Backend (Auth + Database)
+- **UserNotifications** - Local push notifications
+- **Core Data** - Local persistence (for app data)
+
+## Requirements
+
+- iOS 15.0+
+- Xcode 14.0+
+- Swift 5.7+
+- Active Supabase project
+
+## Notes
+
+- The app includes 100+ pre-seeded quotes across 5 categories
+- All user data syncs to Supabase when logged in
+- Quote of the Day is selected based on the day of the year
+- Quote cards can be saved to Photos or shared via the system share sheet
+
+## Troubleshooting
+
+### Authentication Issues
+- Ensure Supabase Auth is enabled in your project
+- Check that your Supabase URL and key are correct
+- Verify email templates are configured in Supabase dashboard
+
+### Database Issues
+- Make sure you've run the `supabase_schema.sql` script
+- Check that RLS policies are correctly set up
+- Verify your API key has the correct permissions
+
+### Notification Issues
+- Ensure notification permissions are granted
+- Check that notifications are enabled in device settings
+- Verify the notification time is set correctly in app settings
+
+## License
+
+This project is provided as-is for educational purposes.

@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  Quote
 //
-//  Created by Kavya on 13/01/26.
+//  Created by aman on 13/01/26.
 //
 
 import SwiftUI
